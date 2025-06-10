@@ -2,11 +2,16 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+import NotificationBell from '@/Components/NotificationBell';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
+    const userRoles = usePage().props.auth.user.roles || [];
+    const isAdmin = userRoles.some(role => role.name === 'admin' || role.name === 'superadmin');
+    const isSuperAdmin = userRoles.some(role => role.name === 'superadmin');
+    const isClient = userRoles.some(role => role.name === 'client');
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -30,10 +35,75 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href={route('layanan.index')}
+                                    active={route().current('layanan.*')}
+                                >
+                                    {isAdmin ? 'Layanan' : 'Permohonan Layanan'}
+                                </NavLink>
+                                {isClient && (
+                                    <NavLink
+                                        href={route('jadwal.index')}
+                                        active={route().current('jadwal.*')}
+                                    >
+                                        Jadwal Janji Temu
+                                    </NavLink>
+                                )}
+                                {isAdmin && (
+                                    <NavLink
+                                        href={route('jadwal.pending')}
+                                        active={route().current('jadwal.pending')}
+                                    >
+                                        Jadwal Pending
+                                    </NavLink>
+                                )}
+                                {isClient && (
+                                    <NavLink
+                                        href={route('notifikasi.index')}
+                                        active={route().current('notifikasi.*')}
+                                    >
+                                        Notifikasi
+                                    </NavLink>
+                                )}
+                                {isAdmin && (
+                                    <NavLink
+                                        href={route('kategori-layanan.index')}
+                                        active={route().current('kategori-layanan.*')}
+                                    >
+                                        Kategori Layanan
+                                    </NavLink>
+                                )}
+                                {isAdmin && (
+                                    <NavLink
+                                        href={route('client-users.index')}
+                                        active={route().current('client-users.*')}
+                                    >
+                                        Manajemen Client
+                                    </NavLink>
+                                )}
+                                {isSuperAdmin && (
+                                    <NavLink
+                                        href={route('admin-users.index')}
+                                        active={route().current('admin-users.*')}
+                                    >
+                                        Manajemen Admin
+                                    </NavLink>
+                                )}
+                                {isSuperAdmin && (
+                                    <NavLink
+                                        href={route('log-aktivitas.index')}
+                                        active={route().current('log-aktivitas.*')}
+                                    >
+                                        Log Aktivitas
+                                    </NavLink>
+                                )}
                             </div>
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
+                            {/* Notification Bell for Clients */}
+                            <NotificationBell userRoles={userRoles} />
+                            
                             <div className="relative ms-3">
                                 <Dropdown>
                                     <Dropdown.Trigger>
@@ -134,6 +204,68 @@ export default function AuthenticatedLayout({ header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('layanan.index')}
+                            active={route().current('layanan.*')}
+                        >
+                            {isAdmin ? 'Layanan' : 'Permohonan Layanan'}
+                        </ResponsiveNavLink>
+                        {isClient && (
+                            <ResponsiveNavLink
+                                href={route('jadwal.index')}
+                                active={route().current('jadwal.*')}
+                            >
+                                Jadwal Janji Temu
+                            </ResponsiveNavLink>
+                        )}
+                        {isAdmin && (
+                            <ResponsiveNavLink
+                                href={route('jadwal.pending')}
+                                active={route().current('jadwal.pending')}
+                            >
+                                Jadwal Pending
+                            </ResponsiveNavLink>
+                        )}
+                        {isClient && (
+                            <ResponsiveNavLink
+                                href={route('notifikasi.index')}
+                                active={route().current('notifikasi.*')}
+                            >
+                                Notifikasi
+                            </ResponsiveNavLink>
+                        )}
+                        {isAdmin && (
+                            <ResponsiveNavLink
+                                href={route('kategori-layanan.index')}
+                                active={route().current('kategori-layanan.*')}
+                            >
+                                Kategori Layanan
+                            </ResponsiveNavLink>
+                        )}
+                        {isAdmin && (
+                            <ResponsiveNavLink
+                                href={route('client-users.index')}
+                                active={route().current('client-users.*')}
+                            >
+                                Manajemen Client
+                            </ResponsiveNavLink>
+                        )}
+                        {isSuperAdmin && (
+                            <ResponsiveNavLink
+                                href={route('admin-users.index')}
+                                active={route().current('admin-users.*')}
+                            >
+                                Manajemen Admin
+                            </ResponsiveNavLink>
+                        )}
+                        {isSuperAdmin && (
+                            <ResponsiveNavLink
+                                href={route('log-aktivitas.index')}
+                                active={route().current('log-aktivitas.*')}
+                            >
+                                Log Aktivitas
+                            </ResponsiveNavLink>
+                        )}
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">

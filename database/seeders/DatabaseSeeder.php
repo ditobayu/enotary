@@ -13,7 +13,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Seed permissions, roles, and users in the correct order
+        $this->call([
+            PermissionSeeder::class,     // Create permissions first
+            RoleSeeder::class,           // Create roles and assign permissions
+            UserSeeder::class,           // Create users and assign roles
+            KategoriLayananSeeder::class, // Create kategori layanan
+            StatusLayananSeeder::class,   // Create status layanan
+        ]);
+
+        // Keep the original test users for development (these won't have roles)
+        User::factory(5)->create();
 
         User::factory()->create([
             'name' => 'Test User',
