@@ -210,7 +210,7 @@ export default function Index({ auth, layanan, flash, statusFilter = '', statusL
                                                             {/* Admin/Superadmin Quick Status Updates */}
                                                             {auth.user.roles?.some(role => ['admin', 'superadmin'].includes(role.name)) && (
                                                                 <div className="flex space-x-1">
-                                                                    {layananItem.status.nama_status === 'Pengajuan' && (
+                                                                    {/* {layananItem.status.nama_status === 'Pengajuan' && (
                                                                         <>
                                                                             <button
                                                                                 onClick={() => quickStatusUpdate(layananItem, statusLayanan.find(s => s.nama_status === 'Diproses')?.id_status)}
@@ -227,7 +227,7 @@ export default function Index({ auth, layanan, flash, statusFilter = '', statusL
                                                                                 Tolak
                                                                             </button>
                                                                         </>
-                                                                    )}
+                                                                    )} */}
                                                                     {layananItem.status.nama_status === 'Diproses' && (
                                                                         <button
                                                                             onClick={() => quickStatusUpdate(layananItem, statusLayanan.find(s => s.nama_status === 'Selesai')?.id_status)}

@@ -150,12 +150,12 @@ export default function Index({ auth, adminUsers }) {
                                                                     >
                                                                         Edit
                                                                     </Link>
-                                                                    <button
+                                                                    {/* <button
                                                                         onClick={() => handleToggleStatus(adminUser)}
                                                                         className="text-yellow-600 hover:text-yellow-900"
                                                                     >
                                                                         {adminUser.email_verified_at ? 'Nonaktifkan' : 'Aktifkan'}
-                                                                    </button>
+                                                                    </button> */}
                                                                     <button
                                                                         onClick={() => handleDelete(adminUser)}
                                                                         className="text-red-600 hover:text-red-900"
