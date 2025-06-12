@@ -81,6 +81,14 @@ export default function AuthenticatedLayout({ header, children }) {
                                         Manajemen Client
                                     </NavLink>
                                 )}
+                                {isAdmin && (
+                                    <NavLink
+                                        href={route('rekap-data.index')}
+                                        active={route().current('rekap-data.*')}
+                                    >
+                                        Rekap Data
+                                    </NavLink>
+                                )}
                                 {isSuperAdmin && (
                                     <NavLink
                                         href={route('admin-users.index')}
@@ -248,6 +256,14 @@ export default function AuthenticatedLayout({ header, children }) {
                                 active={route().current('client-users.*')}
                             >
                                 Manajemen Client
+                            </ResponsiveNavLink>
+                        )}
+                        {isAdmin && (
+                            <ResponsiveNavLink
+                                href={route('rekap-data.index')}
+                                active={route().current('rekap-data.*')}
+                            >
+                                Rekap Data
                             </ResponsiveNavLink>
                         )}
                         {isSuperAdmin && (

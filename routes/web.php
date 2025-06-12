@@ -79,6 +79,10 @@ Route::middleware(['auth', 'role:admin|superadmin'])->group(function () {
     Route::get('client-users/{clientUser}', [ClientUserController::class, 'show'])->name('client-users.show');
     Route::get('client-users/{clientUser}/layanan', [ClientUserController::class, 'layanan'])->name('client-users.layanan');
     Route::get('client-users/{clientUser}/jadwal', [ClientUserController::class, 'jadwal'])->name('client-users.jadwal');
+    
+    // Rekap Data Routes
+    Route::get('rekap-data', [App\Http\Controllers\RekapDataController::class, 'index'])->name('rekap-data.index');
+    Route::get('rekap-data/export', [App\Http\Controllers\RekapDataController::class, 'export'])->name('rekap-data.export');
 });
 
 // Superadmin Routes
