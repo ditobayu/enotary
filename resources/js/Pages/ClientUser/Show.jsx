@@ -112,6 +112,10 @@ export default function Show({ auth, clientUser, stats }) {
                                     <h4 className="text-lg font-semibold text-gray-900">Informasi Akun</h4>
                                     <div className="bg-gray-50 p-4 rounded-lg space-y-3">
                                         <div>
+                                            <span className="text-sm font-medium text-gray-500">NIK</span>
+                                            <p className="text-sm text-gray-900">{clientUser.nik}</p>
+                                        </div>
+                                        <div>
                                             <span className="text-sm font-medium text-gray-500">Email</span>
                                             <p className="text-sm text-gray-900">{clientUser.email}</p>
                                         </div>

@@ -8,11 +8,19 @@ import { Head, Link, useForm } from '@inertiajs/react';
 export default function Edit({ auth, adminUser, roles }) {
     const { data, setData, patch, processing, errors } = useForm({
         name: adminUser.name || '',
+        nik: adminUser.nik || '',
         email: adminUser.email || '',
         password: '',
         password_confirmation: '',
         role: adminUser.roles[0]?.name || 'admin',
     });
+
+    const handleNikChange = (e) => {
+        const value = e.target.value;
+        // Hanya izinkan angka dan maksimal 16 digit
+        const filteredValue = value.replace(/[^0-9]/g, '').slice(0, 16);
+        setData('nik', filteredValue);
+    };
 
     const submit = (e) => {
         e.preventDefault();
@@ -64,6 +72,22 @@ export default function Edit({ auth, adminUser, roles }) {
                                         required
                                     />
                                     <InputError message={errors.name} className="mt-2" />
+                                </div>
+
+                                <div>
+                                    <InputLabel htmlFor="nik" value="NIK (Nomor Induk Kependudukan)" />
+                                    <TextInput
+                                        id="nik"
+                                        name="nik"
+                                        value={data.nik}
+                                        className="mt-1 block w-full"
+                                        autoComplete="off"
+                                        onChange={handleNikChange}
+                                        maxLength="16"
+                                        placeholder="Masukkan 16 digit NIK"
+                                        required
+                                    />
+                                    <InputError message={errors.nik} className="mt-2" />
                                 </div>
 
                                 <div>

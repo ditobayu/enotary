@@ -7,10 +7,25 @@ import { Head, Link, useForm } from '@inertiajs/react';
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
+        nik: '',
         email: '',
         password: '',
         password_confirmation: '',
     });
+
+    const handleNameChange = (e) => {
+        const value = e.target.value;
+        // Hanya izinkan huruf dan spasi
+        const filteredValue = value.replace(/[^a-zA-Z\s]/g, '');
+        setData('name', filteredValue);
+    };
+
+    const handleNikChange = (e) => {
+        const value = e.target.value;
+        // Hanya izinkan angka dan maksimal 16 digit
+        const filteredValue = value.replace(/[^0-9]/g, '').slice(0, 16);
+        setData('nik', filteredValue);
+    };
 
     const submit = (e) => {
         e.preventDefault();
@@ -64,14 +79,37 @@ export default function Register() {
                                         name="name"
                                         value={data.name}
                                         className="block w-full pl-10 pr-3 py-3 border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
-                                        placeholder="Masukkan nama lengkap Anda"
+                                        placeholder="Masukkan nama lengkap Anda (hanya huruf)"
                                         autoComplete="name"
                                         isFocused={true}
-                                        onChange={(e) => setData('name', e.target.value)}
+                                        onChange={handleNameChange}
                                         required
                                     />
                                 </div>
                                 <InputError message={errors.name} className="mt-2" />
+                            </div>
+
+                            <div>
+                                <InputLabel htmlFor="nik" value="NIK (Nomor Induk Kependudukan)" className="text-gray-700 font-medium" />
+                                <div className="mt-2 relative rounded-md shadow-sm">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+                                        </svg>
+                                    </div>
+                                    <TextInput
+                                        id="nik"
+                                        name="nik"
+                                        value={data.nik}
+                                        className="block w-full pl-10 pr-3 py-3 border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                                        placeholder="Masukkan 16 digit NIK Anda"
+                                        autoComplete="off"
+                                        onChange={handleNikChange}
+                                        maxLength="16"
+                                        required
+                                    />
+                                </div>
+                                <InputError message={errors.nik} className="mt-2" />
                             </div>
 
                             <div>

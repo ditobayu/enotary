@@ -83,6 +83,10 @@ export default function Show({ auth, adminUser }) {
                                                 <p className="text-sm text-gray-900 mt-1">#{adminUser.id}</p>
                                             </div>
                                             <div>
+                                                <span className="text-sm font-medium text-gray-500">NIK</span>
+                                                <p className="text-sm text-gray-900 mt-1">{adminUser.nik}</p>
+                                            </div>
+                                            <div>
                                                 <span className="text-sm font-medium text-gray-500">Email</span>
                                                 <p className="text-sm text-gray-900 mt-1">{adminUser.email}</p>
                                             </div>

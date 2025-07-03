@@ -47,14 +47,22 @@ class AdminUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
+            'nik' => 'required|string|size:16|regex:/^[0-9]+$/|unique:'.User::class,
             'email' => 'required|string|lowercase|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => 'required|in:admin,superadmin',
+        ], [
+            'name.regex' => 'Nama hanya boleh berisi huruf dan spasi.',
+            'nik.required' => 'NIK wajib diisi.',
+            'nik.size' => 'NIK harus terdiri dari 16 digit.',
+            'nik.regex' => 'NIK hanya boleh berisi angka.',
+            'nik.unique' => 'NIK sudah terdaftar.',
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'nik' => $request->nik,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'email_verified_at' => now(),
@@ -125,14 +133,22 @@ class AdminUserController extends Controller
         }
 
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
+            'nik' => 'required|string|size:16|regex:/^[0-9]+$/|unique:users,nik,' . $adminUser->id,
             'email' => 'required|string|lowercase|email|max:255|unique:users,email,' . $adminUser->id,
             'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
             'role' => 'required|in:admin,superadmin',
+        ], [
+            'name.regex' => 'Nama hanya boleh berisi huruf dan spasi.',
+            'nik.required' => 'NIK wajib diisi.',
+            'nik.size' => 'NIK harus terdiri dari 16 digit.',
+            'nik.regex' => 'NIK hanya boleh berisi angka.',
+            'nik.unique' => 'NIK sudah terdaftar.',
         ]);
 
         $adminUser->update([
             'name' => $request->name,
+            'nik' => $request->nik,
             'email' => $request->email,
         ]);
 
