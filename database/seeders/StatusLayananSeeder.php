@@ -19,7 +19,6 @@ class StatusLayananSeeder extends Seeder
             ['nama_status' => 'Menunggu Dokumen'],
             ['nama_status' => 'Review'],
             ['nama_status' => 'Jadwal Rapat'],
-            ['nama_status' => 'Sedang Rapat'],
             ['nama_status' => 'Selesai'],
             ['nama_status' => 'Ditolak'],
             ['nama_status' => 'Dibatalkan']
